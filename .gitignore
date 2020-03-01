@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/RaufApiGateways/RaufApiGateways/.vs/RaufApiGateways/v16
+/RaufApiGateways/RaufApiGateways/RaufApiGateways/bin/Debug/netcoreapp3.1
+/RaufApiGateways/RaufApiGateways/RaufApiGateways/obj
