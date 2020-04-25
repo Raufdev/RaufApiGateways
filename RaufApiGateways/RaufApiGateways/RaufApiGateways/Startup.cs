@@ -32,7 +32,7 @@ namespace RaufApiGateways
             services.AddCors();
             services.AddControllers();
 
-            // configure strongly typed settings objects
+             //configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
@@ -53,7 +53,7 @@ namespace RaufApiGateways
             {
                 //options.Authority = identityUrl;
                 //options.RequireHttpsMetadata = false;
-                //options.Audience = "orders";
+                options.Audience = "orders";
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -61,7 +61,7 @@ namespace RaufApiGateways
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = true
                 };
             });
 
@@ -73,10 +73,11 @@ namespace RaufApiGateways
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            //app.UseHttpsRedirection();
 
             //app.UseRouting();
 
@@ -99,7 +100,8 @@ namespace RaufApiGateways
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
             });
         }
